@@ -6,18 +6,26 @@ def compute_height(n, parents):
     # Write this function
     max_height = 0
     # Your code here
+    len = numpy.zeros(n)
     tree = numpy.array(parents)
     for i in range(n):
-        max_height = max(next(tree, i), max_height)
+        next(tree, i, n, len)
+    for i in range(n):
+        if(len[i] > max_height):
+            max_height = int(len[i])
     return max_height
 
-def next(tree, i):
-    height = 1
+def next(tree, i, n, len):
+    check = numpy.zeros(n)
+    check[i] = 1
+    len[i] = 1
     element = tree[i]
-    while(element != -1 ):
-        element = tree[element]
-        height = height + 1
-    return height
+    if(check[element] != 1):
+        while(tree[element]!=1):
+            element = tree[element]
+            len[len!=0] += 1
+            check[element] = 1
+    return len
 
 def main():
     txt=input()
