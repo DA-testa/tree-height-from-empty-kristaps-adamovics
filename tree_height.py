@@ -3,27 +3,19 @@ import threading
 import numpy
 
 def compute_height(n, parents):
-    # Write this function
-    max_height = 0
-    # Your code here
-    len = numpy.zeros(n)
-    tree = numpy.array(parents)
-    check = numpy.zeros(n)
-    
+    tree = numpy.zeros(n)
+    def height(i):
+        if tree[i] != 0:
+            return tree[i]
+        if parents[i] == -1: 
+            tree[i] = 1
+        else: 
+            tree[i] = height(parents[i]) + 1
+        return tree[i]
+
     for i in range(n):
-        check[i] = 1
-        len[i] = 1
-        element = tree[i]
-        if(check[element] != 1):
-            while(element!=-1):
-                element = tree[element]
-                len[len!=0] += 1
-                len[element]=1
-                check[element] = 1
-    for i in range(n):
-        if(len[i] > max_height):
-            max_height = int(len[i])
-    return max_height
+        height(i)
+    return int(max(tree))
 
 def main():
     txt=input()
